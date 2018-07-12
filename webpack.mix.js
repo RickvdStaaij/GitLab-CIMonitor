@@ -6,7 +6,7 @@ mix.sass('monitor/sass/monitor.sass', 'dist');
 
 mix.options({
     extractVueStyles: true,
-    globalVueStyles: `./src/sass/nawcast/_variables.sass`,
+    globalVueStyles: `./monitor/sass/globals.sass`,
     // uglify: {
     //     uglifyOptions: {
     //         compress: {
