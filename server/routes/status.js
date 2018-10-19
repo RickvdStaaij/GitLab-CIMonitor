@@ -7,7 +7,7 @@ app.post('/', (request, response) => {
     Status.createStatus(request.body)
         .then(status =>
             response.json({
-                message: '',
+                message: 'Successfully pushed your status!',
                 status: status.getData(),
             }),
         )

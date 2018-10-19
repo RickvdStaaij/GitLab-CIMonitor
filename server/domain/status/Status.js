@@ -22,11 +22,13 @@ class Status {
         return validate
             .async(data, this.getConstraints())
             .then(data => {
+                const newStatus = new this(data);
+
                 // @todo: Push new status into a new listener
 
                 console.log('[Status] Successfully added!');
 
-                return new this(data);
+                return newStatus;
             })
             .catch(errors => {
                 throw {
