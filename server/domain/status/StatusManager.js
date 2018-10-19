@@ -1,13 +1,8 @@
 class StatusManager {
     constructor() {
         this.statuses = [];
-    }
 
-    addStatus(statusData) {
-        console.log('[StatusManager] Add new status...');
-        return new Promise((resolve, reject) => {
-            // Create new status object
-        });
+        // @todo: Listen to creation of new statuses
     }
 }
 
