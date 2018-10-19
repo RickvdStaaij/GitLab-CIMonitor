@@ -1,7 +1,12 @@
 const app = (module.exports = require('express')());
+const StatusManager = require('../domain/status/StatusManager');
 
 app.post('/', (request, response) => {
     console.log('/status [POST]');
+
+    console.log(request.body);
+
+    StatusManager.addStatus(request.body);
 
     // @todo: Use sexy promise!
     // addStatus(request.body)
