@@ -30,6 +30,8 @@ To start development run:
 -   `make build-dev-server`: Run the development server
 -   `make build-dev-dashboard`: Run the dashboard application (restarts automatically when the front-end code changes)
 
+Note: The server needs to run in order to display the dashboard.
+
 ## Running production
 
 To start the production build:
