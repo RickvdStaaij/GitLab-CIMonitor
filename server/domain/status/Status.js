@@ -1,4 +1,5 @@
 const validate = require('validate.js');
+const Events = require('../Events');
 
 class Status {
     constructor(data) {
@@ -22,9 +23,10 @@ class Status {
         return validate
             .async(data, this.getConstraints())
             .then(data => {
+                data = { ...data, time: new Date() };
                 const newStatus = new this(data);
 
-                // @todo: Push new status into a new listener
+                Events.push(Events.event.newStatus, newStatus);
 
                 console.log('[Status] Successfully added!');
 
@@ -38,8 +40,12 @@ class Status {
             });
     }
 
-    getData() {
+    getRawData() {
         return this.data;
+    }
+
+    getKey() {
+        return this.data.key;
     }
 }
 

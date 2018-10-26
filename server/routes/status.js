@@ -8,7 +8,7 @@ app.post('/', (request, response) => {
         .then(status =>
             response.json({
                 message: 'Successfully pushed your status!',
-                status: status.getData(),
+                status: status.getRawData(),
             }),
         )
         .catch(error => response.status(422).json(error));
