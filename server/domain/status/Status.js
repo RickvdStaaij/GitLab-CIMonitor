@@ -33,6 +33,8 @@ class Status {
                 return newStatus;
             })
             .catch(errors => {
+                console.log('[Status] Validation failed, throwing error.');
+
                 throw {
                     message: 'The new status is not valid, please check the errors.',
                     errors: errors,
