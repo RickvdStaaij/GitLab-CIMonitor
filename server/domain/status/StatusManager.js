@@ -3,6 +3,7 @@ class StatusManager {
         this.statuses = [];
 
         // @todo: Listen to creation of new statuses
+        console.log('[StatusManager] Listening to incoming statuses...');
     }
 }
 
