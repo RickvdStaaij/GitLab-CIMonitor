@@ -58,8 +58,8 @@ switch-branch:
 checkout-pr:
 	@if [ -z $$PR ]; then echo "No PR number is set, please run:\nmake github PR=<number>"; exit 1; fi
 	@echo "\n=== Checking out Pull Request $$PR ===\n"
-	git fetch upstream refs/pull/$$MR/head:refs/remotes/upstream/pr/$$MR
-	git checkout upstream/pr/$$MR
+	git fetch upstream refs/pull/$$PR/head:refs/remotes/upstream/pr/$$PR
+	git checkout upstream/pr/$$PR
 
 run-updates:
 	@echo "\n=== Updating project ===\n"
