@@ -6,14 +6,13 @@
 
 info: intro commands
 intro:
-	@echo ""
-	@echo " #####  ### #     #"
-	@echo "#     #  #  ##   ##  ####  #    # # #####  ####  #####"
-	@echo "#        #  # # # # #    # ##   # #   #   #    # #    #"
-	@echo "#        #  #  #  # #    # # #  # #   #   #    # #    #"
-	@echo "#        #  #     # #    # #  # # #   #   #    # #####"
-	@echo "#     #  #  #     # #    # #   ## #   #   #    # #   #"
-	@echo " #####  ### #     #  ####  #    # #   #    ####  #    #"
+	@echo "........................................................................."
+	@echo "..####...######..##...##...####...##..##..######..######...####...#####.."
+	@echo ".##..##....##....###.###..##..##..###.##....##......##....##..##..##..##."
+	@echo ".##........##....##.#.##..##..##..##.###....##......##....##..##..#####.."
+	@echo ".##..##....##....##...##..##..##..##..##....##......##....##..##..##..##."
+	@echo "..####...######..##...##...####...##..##..######....##.....####...##..##."
+	@echo "........................................................................."
 
 # ===========================
 # Main commands
@@ -28,7 +27,7 @@ git-hooks: intro install-git-hooks
 
 build-dev-server: intro dev-server
 build-dev-dashboard: intro dev-dashboard
-build-production: intro production-build
+build-production: intro run-updates production-build
 
 test: intro test-prettier
 pre-commit: intro test-prettier commit-intro
@@ -72,12 +71,15 @@ run-watch:
 	yarn watch
 
 dev-server:
+	@echo "\n=== Starting server application ===\n"
 	yarn start
 
 dev-dashboard:
+	@echo "\n=== Building and watching files ===\n"
 	yarn watch
 
 production-build:
+	@echo "\n=== Building files for production ===\n"
 	yarn build
 
 test-prettier:
