@@ -4,13 +4,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const router = require('./routes');
 
-const statusManager = require('./domain/status/StatusManager');
-
 const app = express();
-
 app.use(bodyParser.json());
 app.use(router);
 
-app.listen(9999, () => {
-    console.log('[Express] Ready and listening...');
+const server = require('http').createServer(app);
+
+const socketConnectionManager = require('./domain/dashboard/SocketConnectionManager');
+socketConnectionManager.setSocketServer(server);
+socketConnectionManager.startListening();
+
+server.listen(9999, () => {
+    console.log('[server] Running and listening...');
 });

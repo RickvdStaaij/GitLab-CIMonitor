@@ -26,9 +26,9 @@ In order to run the application you need:
 
 To start development run:
 
--   `make init`: The first time you
--   `make build-dev-server`: Run the development server
--   `make build-dev-dashboard`: Run the dashboard application (restarts automatically when the front-end code changes)
+-   `make init`: The first time you want to run the project locally
+-   `make dev-server`: Run the development server
+-   `make dev-client`: Run the dashboard application (restarts automatically when the front-end code changes)
 
 Note: The server needs to run in order to display the dashboard.
 

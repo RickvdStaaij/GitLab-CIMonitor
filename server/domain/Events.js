@@ -9,6 +9,7 @@ class Events {
     setEvents() {
         this.event = {
             newStatus: 'new-status',
+            statusesUpdated: 'statuses-updated',
         };
     }
 

@@ -1,12 +1,12 @@
 let mix = require('laravel-mix');
 
-mix.js('monitor/monitor.js', 'dist');
+mix.js('client/client.js', 'dist');
 
-mix.sass('monitor/sass/monitor.sass', 'dist');
+mix.sass('client/sass/dashboard.sass', 'dist');
 
 mix.options({
     extractVueStyles: true,
-    globalVueStyles: `./monitor/sass/globals.sass`,
+    globalVueStyles: `./client/sass/globals.sass`,
     // uglify: {
     //     uglifyOptions: {
     //         compress: {

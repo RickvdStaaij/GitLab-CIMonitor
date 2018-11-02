@@ -9,5 +9,5 @@ app.use(express.static('dist'));
 app.get('/', (req, res) => {
     console.log('/ [GET]');
 
-    return res.sendFile(path.resolve(__dirname + '/../../monitor/index.html'));
+    return res.sendFile(path.resolve(__dirname + '/../../client/index.html'));
 });

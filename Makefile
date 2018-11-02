@@ -4,7 +4,7 @@
 # Default: help section
 # ===========================
 
-info: intro commands
+info: intro do-show-commands
 intro:
 	@echo ""
 	@echo " .d8888b. 8888888 888b     d888                   d8b 888"
@@ -20,25 +20,25 @@ intro:
 # Main commands
 # ===========================
 
-init: intro install-git-hooks run-updates commands
+init: intro do-install-git-hooks do-run-updates do-show-commands
 
-github: intro checkout-pr run-updates
-update-project: intro run-updates
-update: intro switch-branch run-updates
-git-hooks: intro install-git-hooks
+github: intro do-checkout-pr do-run-updates
+update-project: intro do-run-updates
+update: intro do-switch-branch do-run-updates
+git-hooks: intro do-install-git-hooks
 
-build-dev-server: intro dev-server
-build-dev-dashboard: intro dev-dashboard
-build-production: intro run-updates production-build
+dev-server: intro do-dev-server
+dev-client: intro do-dev-client
+build-production: intro do-run-updates do-build-production
 
-test: intro test-prettier
-pre-commit: intro test-prettier commit-intro
+test: intro do-test-prettier
+pre-commit: intro do-test-prettier do-commit-intro
 
 # ===========================
 # Recipes
 # ===========================
 
-commands:
+do-show-commands:
 	@echo "\n=== Make CIMonitor ===\n"
 	@echo "make                        Show the make commands you can run."
 	@echo "make init                   Initialise the project for development."
@@ -51,52 +51,52 @@ commands:
 	@echo "make build-production       Build all the files required for production."
 	@echo "make test                   Run the testsuite."
 
-switch-branch:
+do-switch-branch:
 	@if [ -z $$BRANCH ]; then echo "No branch is set, please run:\nmake update BRANCH=<branch>"; exit 1; fi
 	@echo "\n=== Switching to and updating $$BRANCH ===\n"
 	git checkout $$BRANCH
 	git pull upstream $$BRANCH
 
-checkout-pr:
+do-checkout-pr:
 	@if [ -z $$PR ]; then echo "No PR number is set, please run:\nmake github PR=<number>"; exit 1; fi
 	@echo "\n=== Checking out Pull Request $$PR ===\n"
 	git fetch upstream refs/pull/$$PR/head:refs/remotes/upstream/pr/$$PR
 	git checkout upstream/pr/$$PR
 
-run-updates:
+do-run-updates:
 	@echo "\n=== Updating project ===\n"
 	yarn install
 
-run-watch:
+do-run-watch:
 	@echo "\n=== Running file watchers ===\n"
 	rm -rf dist/*
 	yarn watch
 
-dev-server:
+do-dev-server:
 	@echo "\n=== Starting server application ===\n"
 	yarn start
 
-dev-dashboard:
+do-dev-client:
 	@echo "\n=== Building and watching files ===\n"
 	yarn watch
 
-production-build:
+do-build-production:
 	@echo "\n=== Building files for production ===\n"
 	yarn production
 
-test-prettier:
+do-test-prettier:
 	@echo "\n=== Prettier style check ===\n"
 	@echo "Wrongly formatted files:"
 	@node_modules/.bin/prettier -l "{server,monitor}/**/*.{js,vue}" && echo "None ❤️"
 
-# test-eslint:
+# do-test-eslint:
 # 	@echo "\n=== Running ESLint ===\n"
 # 	@node_modules/.bin/eslint --color "{server,monitor}/**/*.{js,vue}" && echo "No errors ❤️"
 
-commit-intro:
+do-commit-intro:
 	@echo "\n=== Committing ===\n"
 
-install-git-hooks:
+do-install-git-hooks:
 	@echo "\n=== Installing git hooks ===\n"
 	cp dev/git-hooks/* .git/hooks
 	chmod +x .git/hooks/*

@@ -1,5 +1,6 @@
 const Events = require('../Events');
 const Status = require('./Status');
+const staticEvents = require('../../../shared/socketEvents');
 
 class StatusManager {
     constructor() {
@@ -9,11 +10,7 @@ class StatusManager {
     }
 
     setListeners() {
-        Events.watch(Events.event.newStatus, status => {
-            console.log('[StatusManager] Received new status.');
-
-            this.processStatus(status);
-        });
+        Events.watch(Events.event.newStatus, status => this.onNewStatus(status));
 
         console.log('[StatusManager] Listening to incoming statuses...');
     }
@@ -33,6 +30,27 @@ class StatusManager {
 
         console.log('[StatusManager] Adding new status to the statuses.');
         this.statuses.push(status);
+    }
+
+    getStatuses() {
+        return (
+            this.statuses
+                // Get raw data only
+                .map(status => status.getRawData())
+                // Newest updates first
+                .sort((statusA, statusB) => statusA.time < statusB.time)
+        );
+    }
+
+    /**
+     * @param {Status} status
+     */
+    onNewStatus(status) {
+        console.log('[StatusManager] Received new status.');
+
+        this.processStatus(status);
+
+        Events.push(Events.event.statusesUpdated);
     }
 }
 
