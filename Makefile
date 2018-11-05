@@ -46,8 +46,8 @@ do-show-commands:
 	@echo "make update BRANCH=<branch> Switch to a branch and run update-project."
 	@echo "make github PR=<number>     Check out a PR from github and update the project."
 	@echo "make git-hooks              Install the available git hooks."
-	@echo "make build-dev-server       Build and run the development server."
-	@echo "make build-dev-dashboard    Build, run and watch the development dashboard."
+	@echo "make dev-server             Build and run the development server."
+	@echo "make dev-client             Build, run and watch the development dashboard."
 	@echo "make build-production       Build all the files required for production."
 	@echo "make test                   Run the testsuite."
 
