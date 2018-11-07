@@ -6,8 +6,8 @@ const path = require('path');
 app.use(express.static('dist'));
 
 // When directly opening the applications index, show the dashboard
-app.get('/', (req, res) => {
+app.get('/', (request, response) => {
     console.log('/ [GET]');
 
-    return res.sendFile(path.resolve(__dirname + '/../../client/index.html'));
+    return response.sendFile(path.resolve(__dirname + '/../../client/index.html'));
 });

@@ -52,6 +52,12 @@ class StatusManager {
 
         Events.push(Events.event.statusesUpdated);
     }
+
+    reset() {
+        this.statuses = [];
+
+        Events.push(Events.event.statusesUpdated);
+    }
 }
 
 module.exports = new StatusManager();

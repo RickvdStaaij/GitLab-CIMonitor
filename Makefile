@@ -34,6 +34,8 @@ build-production: intro do-run-updates do-build-production
 test: intro do-test-prettier
 pre-commit: intro do-test-prettier do-commit-intro
 
+cypress: do-cypress-open
+
 # ===========================
 # Recipes
 # ===========================
@@ -100,3 +102,6 @@ do-install-git-hooks:
 	@echo "\n=== Installing git hooks ===\n"
 	cp dev/git-hooks/* .git/hooks
 	chmod +x .git/hooks/*
+
+do-cypress-open:
+	./node_modules/.bin/cypress open
