@@ -17,4 +17,11 @@ context('Waiting', () => {
         cy.wait(1000);
         cy.pushStatus('custom-status-2-success.json');
     });
+
+    it('pushes a successful gitlab pipeline', () => {
+        for (let i = 1; i <= 27; i++) {
+            cy.pushGitLabWebHook(`master-pipeline-success/${i}.json`);
+            cy.wait(1000);
+        }
+    });
 });

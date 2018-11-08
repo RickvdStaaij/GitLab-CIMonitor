@@ -32,7 +32,7 @@ dev-client: intro do-dev-client
 build-production: intro do-run-updates do-build-production
 
 test: intro do-test-prettier
-pre-commit: intro do-test-prettier do-commit-intro
+pre-commit: intro do-fix-prettier do-commit-intro
 
 cypress: do-cypress-open
 
@@ -88,9 +88,13 @@ do-build-production:
 	yarn production
 
 do-test-prettier:
-	@echo "\n=== Prettier style check ===\n"
+	@echo "\n=== Prettier code style check ===\n"
 	@echo "Wrongly formatted files:"
-	@node_modules/.bin/prettier -l "{server,monitor}/**/*.{js,vue}" && echo "None ❤️"
+	@node_modules/.bin/prettier -l "./**/*.{js,vue,json,md}" && echo "None ❤️"
+
+do-fix-prettier:
+	@echo "\n=== Prettier code style fixer ===\n"
+	@node_modules/.bin/prettier --write "./**/*.{js,vue,json,md}" && echo "Code style is cleaned ❤️"
 
 # do-test-eslint:
 # 	@echo "\n=== Running ESLint ===\n"

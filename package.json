@@ -2,7 +2,7 @@
     "name": "CIMonitor",
     "version": "1.0.0",
     "description": "CIMonitor",
-    "main": "dist/server.js",
+    "main": "server/server.js",
     "author": "Rick van der Staaij <info@rickvanderstaaij.nl>",
     "license": "MIT",
     "private": false,

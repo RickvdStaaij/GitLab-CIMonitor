@@ -14,7 +14,7 @@ Cypress.Commands.add('pushStatus', request => {
 });
 
 Cypress.Commands.add('pushGitLabWebHook', request => {
-    cy.fixture(`gitlab-webhook/${request}`).then(body => {
+    cy.fixture(`gitlab-web-hook/${request}`).then(body => {
         cy.request({
             url: 'http://localhost:9999/gitlab',
             method: 'POST',
