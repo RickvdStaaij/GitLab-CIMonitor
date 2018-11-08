@@ -1,18 +1,20 @@
 <template>
-    <div>
-        <h1>Dashboard</h1>
+    <div class="dashboard">
         <div v-for="(status, index) in statuses" :key="index">
             <hr>
             <h3>{{ status.key }}</h3>
             <p>{{ status.state }}</p>
         </div>
+        <tool-bar />
     </div>
 </template>
 
 <script>
 import socketEvents from '../../shared/socketEvents';
+import ToolBar from './ToolBar';
 
 export default {
+    components: { ToolBar },
     data: () => {
         return {
             statuses: [],
@@ -28,6 +30,5 @@ export default {
 </script>
 
 <style lang="sass" rel="stylesheet/sass" scoped>
-h1
-    color: $color-error
+
 </style>

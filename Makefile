@@ -52,6 +52,7 @@ do-show-commands:
 	@echo "make dev-client             Build, run and watch the development dashboard."
 	@echo "make build-production       Build all the files required for production."
 	@echo "make test                   Run the testsuite."
+	@echo "make cypress                Open Cypress dashboard for quick testing."
 
 do-switch-branch:
 	@if [ -z $$BRANCH ]; then echo "No branch is set, please run:\nmake update BRANCH=<branch>"; exit 1; fi

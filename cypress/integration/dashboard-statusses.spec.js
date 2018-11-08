@@ -8,7 +8,7 @@ context('Waiting', () => {
     });
 
     it('pushes custom statuses', () => {
-        cy.get('h1');
+        cy.get('.toolbar');
         cy.pushStatus('custom-status-1-success.json');
         cy.wait(1000);
         cy.pushStatus('custom-status-2-started.json');
