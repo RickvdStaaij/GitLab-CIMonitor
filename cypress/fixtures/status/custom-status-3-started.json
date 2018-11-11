@@ -2,5 +2,5 @@
     "key": "ci-monitor-status-2",
     "title": "CIMonitor",
     "subTitle": "develop",
-    "state": "success"
+    "state": "warning"
 }

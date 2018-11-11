@@ -10,9 +10,21 @@ class Status {
         return {
             key: {
                 presence: true,
+                format: /[\d\w_-]+/,
             },
             state: {
                 presence: true,
+                inclusion: ['success', 'warning', 'error', 'info'],
+            },
+            title: {
+                presence: true,
+            },
+            subTitle: {},
+            image: {
+                url: true,
+            },
+            userImage: {
+                url: true,
             },
         };
     }

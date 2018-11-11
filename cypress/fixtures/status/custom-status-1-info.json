@@ -1,0 +1,6 @@
+{
+    "key": "ci-monitor-info-key",
+    "title": "CIMonitor",
+    "subTitle": "Test run is starting and pumping.",
+    "state": "info"
+}

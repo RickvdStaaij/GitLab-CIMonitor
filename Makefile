@@ -35,6 +35,7 @@ test: intro do-test-prettier
 pre-commit: intro do-fix-prettier do-commit-intro
 
 cypress: do-cypress-open
+cypress-run: do-cypress-run
 
 # ===========================
 # Recipes
@@ -53,6 +54,7 @@ do-show-commands:
 	@echo "make build-production       Build all the files required for production."
 	@echo "make test                   Run the testsuite."
 	@echo "make cypress                Open Cypress dashboard for quick testing."
+	@echo "make cypress-run            Run the cypress tests in the background."
 
 do-switch-branch:
 	@if [ -z $$BRANCH ]; then echo "No branch is set, please run:\nmake update BRANCH=<branch>"; exit 1; fi
@@ -110,3 +112,6 @@ do-install-git-hooks:
 
 do-cypress-open:
 	./node_modules/.bin/cypress open
+
+do-cypress-run:
+	./node_modules/.bin/cypress run

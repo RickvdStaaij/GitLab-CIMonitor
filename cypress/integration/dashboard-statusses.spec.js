@@ -9,13 +9,19 @@ context('Waiting', () => {
 
     it('pushes custom statuses', () => {
         cy.get('.toolbar');
-        cy.pushStatus('custom-status-1-success.json');
+        cy.pushStatus('custom-status-1-info.json');
         cy.wait(1000);
         cy.pushStatus('custom-status-2-started.json');
         cy.wait(1000);
-        cy.pushStatus('custom-status-3-success.json');
+        cy.pushStatus('custom-status-3-started.json');
+        cy.wait(1000);
+        cy.pushStatus('custom-status-3-error.json');
         cy.wait(1000);
         cy.pushStatus('custom-status-2-success.json');
+        cy.wait(1000);
+        cy.pushStatus('custom-status-3-started.json');
+        cy.wait(1000);
+        cy.pushStatus('custom-status-3-success.json');
     });
 
     it('pushes a successful gitlab pipeline', () => {

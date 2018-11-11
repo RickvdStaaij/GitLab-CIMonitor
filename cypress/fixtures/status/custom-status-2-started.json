@@ -1,4 +1,8 @@
 {
-    "key": "status-key-2",
-    "state": "started"
+    "key": "ci-monitor-status-1",
+    "title": "CIMonitor",
+    "subTitle": "master",
+    "state": "warning",
+    "image": "https://avatars2.githubusercontent.com/u/18479455?s=200&v=4",
+    "userImage": "https://avatars3.githubusercontent.com/u/6495166?s=460&v=4"
 }

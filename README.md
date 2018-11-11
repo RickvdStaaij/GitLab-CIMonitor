@@ -1,4 +1,4 @@
-# [![image](https://cloud.githubusercontent.com/assets/6495166/26699859/947f4466-471b-11e7-9d82-9f0db072a675.png)](https://cimonitor.readthedocs.io) GitLab-CIMonitor
+# [![image](https://avatars2.githubusercontent.com/u/18479455?s=200&v=4)](https://cimonitor.readthedocs.io) GitLab-CIMonitor
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
