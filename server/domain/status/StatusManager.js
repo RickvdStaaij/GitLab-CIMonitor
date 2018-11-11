@@ -43,12 +43,21 @@ class StatusManager {
     }
 
     /**
+     * @return Status
+     */
+    getStatusByKey(statusKey) {
+        return this.statuses.find(status => status.key === statusKey);
+    }
+
+    /**
      * @param {Status} status
      */
     onNewStatus(status) {
         console.log('[StatusManager] Received new status.');
 
         this.processStatus(status);
+
+        // @todo: Remove old statuses
 
         Events.push(Events.event.statusesUpdated);
     }
