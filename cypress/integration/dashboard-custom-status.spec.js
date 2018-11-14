@@ -15,8 +15,6 @@ context('Waiting', () => {
         cy.wait(1000);
         cy.pushStatus('custom-status-2-success.json');
         cy.wait(1000);
-        cy.pushStatus('custom-status-3-started.json');
-        cy.wait(1000);
-        cy.pushStatus('custom-status-3-success.json');
+        cy.pushStatus('custom-status-4-started.json');
     });
 });
