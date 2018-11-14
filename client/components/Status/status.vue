@@ -57,11 +57,13 @@ export default {
 
 .user-image
     float: right
-    padding-left: 20px
+    margin-left: 20px
+    border-radius: 50%
+    background-color: rgba(0, 0, 0, 0.1)
 
 .image
     float: left
-    padding-right: 20px
+    margin-right: 20px
 
 .success
     background: $color-success
