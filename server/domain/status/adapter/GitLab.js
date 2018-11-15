@@ -16,37 +16,36 @@ class StatusAdapterGitLab {
     processPipelineEvent(data) {
         const key = this.getKeyFromPipeline(data);
 
-        // Check if status already exists
-        const newStatus = StatusManager.getStatusByKey(key);
-
-        // @todo: Keep the builds if the status already exists
-
-        // @todo: If the pipeline is started, clear the jobs
-
-        // @todo: Update all other details
-
         Status.createStatus({
             key,
-            state: this.statusToState(data.object_attributes.status),
+            state: this.pipelineStatusToState(data.object_attributes.status),
             title: data.project.path_with_namespace,
             subTitle: data.object_attributes.ref,
             image: data.project.avatar_url,
             userImage: data.user.avatar_url,
-            stages: [],
-            jobs: [],
+            stages: data.object_attributes.stages,
+            jobs: data.builds.map(build => {
+                return {
+                    name: build.name,
+                    stage: build.stage,
+                    state: this.buildStatusToState(build.status),
+                };
+            }),
         });
     }
 
     processBuildEvent(data) {
-        // Not doing anything with the created status
-        if (data.build_status === 'created') {
+        const key = this.getKeyFromBuild(data);
+
+        // Check if status key already exists, if not, ¯\_(ツ)_/¯
+        const status = StatusManager.getStatusByKey(key);
+        if (!status) {
             return;
         }
 
-        const key = this.getKeyFromBuild(data);
+        // @todo: Clean the job so only the required params are present
 
-        // @todo: Check if the status is for the latest pipeline
-        // @todo: Update the job for the status, and re-create the event
+        // @todo: Update the job in the jobs array, then re-push the status with the new jobs list
     }
 
     getKeyFromPipeline(data) {
@@ -57,7 +56,23 @@ class StatusAdapterGitLab {
         return `gitlab-${data.project_id}-${data.ref}`.replace(/[^\d\w-]/g, '-');
     }
 
-    statusToState(status) {
+    pipelineStatusToState(status) {
+        if (status === 'pending') {
+            return 'info';
+        }
+
+        if (status === 'running') {
+            return 'warning';
+        }
+
+        if (status === 'failed') {
+            return 'error';
+        }
+
+        return 'success';
+    }
+
+    buildStatusToState(status) {
         if (status === 'pending') {
             return 'info';
         }
