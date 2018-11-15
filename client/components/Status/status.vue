@@ -3,6 +3,14 @@
         <img v-if="status.image" :src="status.image" class="image" />
         <div class="details">
             <div class="title">{{ status.title }}</div>
+            <div v-if="status.stages">
+                <div v-for="stage in status.stages" :key="stage.name">
+                    {{ stage }}
+                    <div v-for="job in getStageJobs(status.jobs, stage)" :key="job.name">
+                        {{job.name}}: {{job.state}}
+                    </div>
+                </div>
+            </div>
             <div class="sub-title">
                 <span v-if="status.subTitle">{{ status.subTitle }}</span>
                 <span class="time-ago" v-if="now">
@@ -25,6 +33,9 @@ export default {
             const xhttp = new XMLHttpRequest();
             xhttp.open('DELETE', `/status/${statusKey}`, true);
             xhttp.send();
+        },
+        getStageJobs(jobs, stage) {
+            return jobs.filter(job => job.stage === stage);
         },
     },
     computed: {
@@ -50,7 +61,7 @@ $border-bottom: 3px
     border-top: $border-top solid $color-info-light
     border-bottom: $border-bottom solid $color-info-dark
     margin-bottom: 10px
-    padding: 20px
+    padding: 20px 0
     overflow: hidden
     display: flex
     flex-direction: row
@@ -75,10 +86,12 @@ $border-bottom: 3px
 
 .image
     border-radius: 3px
+    margin-left: 20px
 
 .user-image
     border-radius: 50%
     background-color: rgba(0, 0, 0, 0.1)
+    margin-right: 20px
 
 .remove-button
     position: absolute

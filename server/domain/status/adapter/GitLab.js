@@ -72,17 +72,21 @@ class StatusAdapterGitLab {
         return 'success';
     }
 
-    buildStatusToState(status) {
+    buildStatusToState(status, errorAllowed = false) {
+        if (status === 'created') {
+            return 'created';
+        }
+
         if (status === 'pending') {
-            return 'info';
+            return 'pending';
         }
 
         if (status === 'running') {
-            return 'warning';
+            return 'running';
         }
 
         if (status === 'failed') {
-            return 'error';
+            return errorAllowed ? 'allowed-error' : 'error';
         }
 
         return 'success';
