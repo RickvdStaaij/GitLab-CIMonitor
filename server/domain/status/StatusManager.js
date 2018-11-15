@@ -19,11 +19,11 @@ class StatusManager {
      * @param {Status} status
      */
     processStatus(status) {
-        const existingStatusByKey = this.statuses.find(existingStatus => existingStatus.getKey() === status.getKey());
+        const existingStatus = this.statuses.find(existingStatus => existingStatus.getKey() === status.getKey());
 
-        if (existingStatusByKey) {
+        if (existingStatus) {
             console.log('[StatusManager] Status already exists, replacing the old status.');
-            const index = this.statuses.indexOf(existingStatusByKey);
+            const index = this.statuses.indexOf(existingStatus);
             this.statuses[index] = status;
             return;
         }
@@ -60,6 +60,20 @@ class StatusManager {
         // @todo: Remove old statuses
 
         Events.push(Events.event.statusesUpdated);
+    }
+
+    removeStatus(statusKey) {
+        const existingStatus = this.statuses.find(existingStatus => existingStatus.getKey() === statusKey);
+
+        if (existingStatus) {
+            const index = this.statuses.indexOf(existingStatus);
+            this.statuses.splice(index, 1);
+            console.log(`[StatusManager] Removed status with key ${statusKey}.`);
+            Events.push(Events.event.statusesUpdated);
+            return;
+        }
+
+        console.log(`[StatusManager] No status found with key ${statusKey}.`);
     }
 
     reset() {

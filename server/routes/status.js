@@ -28,3 +28,11 @@ app.get('/clear-all', (request, response) => {
 
     response.json({ message: 'All statuses have been cleared.' });
 });
+
+app.delete('/:statusKey', (request, response) => {
+    console.log(`/status/${request.params.statusKey} [DELETE]`);
+
+    StatusManager.removeStatus(request.params.statusKey);
+
+    response.json({ message: `Status with key ${request.params.statusKey} is removed.` });
+});
