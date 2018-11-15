@@ -38,6 +38,12 @@ class StatusAdapterGitLab {
     processBuildEvent(data) {
         const key = this.getKeyFromBuild(data);
 
+        // no one cares about created ¯\_(ツ)_/¯
+        if (data.build_status === 'created') {
+            console.log(`[StatusAdapterGitLab] Ignoring build created.`);
+            return;
+        }
+
         // Check if status key already exists, if not, ¯\_(ツ)_/¯
         const status = StatusManager.getStatusByKey(key);
         if (!status) {
@@ -79,10 +85,6 @@ class StatusAdapterGitLab {
     }
 
     buildStatusToState(status, errorAllowed = false) {
-        if (status === 'created') {
-            return 'created';
-        }
-
         if (status === 'pending') {
             return 'pending';
         }
