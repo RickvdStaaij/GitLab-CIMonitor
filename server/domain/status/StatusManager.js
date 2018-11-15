@@ -46,7 +46,7 @@ class StatusManager {
      * @return Status
      */
     getStatusByKey(statusKey) {
-        return this.statuses.find(status => status.key === statusKey);
+        return this.statuses.find(status => status.getKey() === statusKey);
     }
 
     /**

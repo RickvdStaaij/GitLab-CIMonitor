@@ -3,12 +3,10 @@
         <img v-if="status.image" :src="status.image" class="image" />
         <div class="details">
             <div class="title">{{ status.title }}</div>
-            <div v-if="status.stages">
-                <div v-for="stage in status.stages" :key="stage.name">
-                    {{ stage }}
-                    <div v-for="job in getStageJobs(status.jobs, stage)" :key="job.name">
-                        {{job.name}}: {{job.state}}
-                    </div>
+            <div class="jobs" v-if="status.jobs && interestingJobs">
+                <div class="job" v-for="(job, index) in interestingJobs" :key="index">
+                    <i :class="stateToIcon(job.state)"></i>
+                    {{ job.name }}
                 </div>
             </div>
             <div class="sub-title">
@@ -34,8 +32,13 @@ export default {
             xhttp.open('DELETE', `/status/${statusKey}`, true);
             xhttp.send();
         },
-        getStageJobs(jobs, stage) {
-            return jobs.filter(job => job.stage === stage);
+        stateToIcon(state) {
+            return {
+                error: 'fas fa-times',
+                running: 'fas fa-redo-alt fa-spin',
+                pending: 'far fa-pause-circle',
+                'allowed-error': 'fas fa-exclamation-triangle',
+            }[state];
         },
     },
     computed: {
@@ -45,6 +48,15 @@ export default {
                 return 'just now';
             }
             return timeAgo;
+        },
+        interestingJobs() {
+            if (!this.status.jobs) {
+                return [];
+            }
+
+            return this.status.jobs.filter(
+                job => ['pending', 'running', 'error', 'allowed-error'].indexOf(job.state) !== -1,
+            );
         },
     },
 };
@@ -111,6 +123,15 @@ $border-bottom: 3px
 .time-ago
     padding-left: 10px
     font-size: 20px
+
+.jobs
+    margin-top: 10px
+
+.job
+    display: inline-block
+    font-size: 26px
+    margin: 0 20px 10px 0
+    border-radius: 5px
 
 .success
     background: $color-success

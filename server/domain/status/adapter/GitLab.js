@@ -14,6 +14,7 @@ class StatusAdapterGitLab {
     }
 
     processPipelineEvent(data) {
+        console.log('[StatusAdapterGitLab] Processing pipeline into a status...');
         const key = this.getKeyFromPipeline(data);
 
         Status.createStatus({
@@ -40,12 +41,17 @@ class StatusAdapterGitLab {
         // Check if status key already exists, if not, ¯\_(ツ)_/¯
         const status = StatusManager.getStatusByKey(key);
         if (!status) {
+            console.log(`[StatusAdapterGitLab] Received build details for a pipeline that doesn't exist yet.`);
             return;
         }
 
-        // @todo: Clean the job so only the required params are present
-
-        // @todo: Update the job in the jobs array, then re-push the status with the new jobs list
+        console.log('[StatusAdapterGitLab] Updating status with new build details...');
+        status.updateJob({
+            name: data.build_name,
+            stage: data.build_stage,
+            state: this.buildStatusToState(data.build_status, data.build_allow_failure),
+        });
+        Status.createStatus(status.getRawData());
     }
 
     getKeyFromPipeline(data) {

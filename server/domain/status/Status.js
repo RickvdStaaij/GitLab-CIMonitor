@@ -6,6 +6,19 @@ class Status {
         this.data = data;
     }
 
+    static getJobConstraints() {
+        return {
+            name: {
+                presence: true,
+            },
+            stage: {},
+            state: {
+                presence: true,
+                inclusion: ['created', 'pending', 'running', 'error', 'success', 'allowed-error'],
+            },
+        };
+    }
+
     static jobsValidator(jobs) {
         // Do not care if not set
         if (!jobs) {
@@ -18,18 +31,7 @@ class Status {
 
         const errors = [];
         jobs.forEach((job, index) => {
-            const validateErrors = validate(job, {
-                name: {
-                    presence: true,
-                },
-                stage: {
-                    presence: true,
-                },
-                state: {
-                    presence: true,
-                    inclusion: ['created', 'pending', 'running', 'error', 'success', 'allowed-error'],
-                },
-            });
+            const validateErrors = validate(job, Status.getJobConstraints());
             if (validateErrors) {
                 errors.push(`job ${index}: ${JSON.stringify(validateErrors)}`);
             }
@@ -53,7 +55,7 @@ class Status {
         }
     }
 
-    static getConstraints() {
+    static getStatusConstraints() {
         validate.validators.jobsValidator = this.jobsValidator;
         validate.validators.stagesValidator = this.stagesValidator;
 
@@ -89,7 +91,7 @@ class Status {
         console.log('[Status] Creating status...');
 
         return validate
-            .async(data, this.getConstraints())
+            .async(data, this.getStatusConstraints())
             .then(data => {
                 data = { ...data, time: new Date() };
                 const newStatus = new this(data);
@@ -108,6 +110,28 @@ class Status {
                     errors: errors,
                 };
             });
+    }
+
+    updateJob(job) {
+        if (validate(job, Status.getJobConstraints())) {
+            console.log('[Status] Invalid job, not adding to status jobs.');
+            return;
+        }
+
+        if (!this.data.jobs) {
+            this.data.jobs = [job];
+            return;
+        }
+
+        const existingJob = this.data.jobs.find(existingJob => existingJob.name === job.name);
+
+        if (existingJob) {
+            const index = this.data.jobs.indexOf(existingJob);
+            this.data.jobs[index] = job;
+            return;
+        }
+
+        this.data.jobs.push(job);
     }
 
     getRawData() {
